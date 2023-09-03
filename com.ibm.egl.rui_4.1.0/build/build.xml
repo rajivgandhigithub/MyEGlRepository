@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="exportEglar" default="default">
+	<target name="default" description="Export eglar file">
+		<egl.export project="com.ibm.egl.rui_4.1.0" failOnError="true" destFolder="E:\workspace\ws90\RTCBuild\Widgets" type="eglar" />
+	</target>
+</project>

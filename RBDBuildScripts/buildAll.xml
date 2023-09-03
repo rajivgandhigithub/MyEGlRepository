@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="setupWorkspace" default="default">
+	<property name="ECLIPSE_HOME" value="E:\IBM\RBD851" />
+	<property name="ECLIPSE_SHARED_HOME" value="E:\IBM\SDPShared" />
+	<property name="RBD_JAVA_RUNTIME_HOME" value="${ECLIPSE_SHARED_HOME}\plugins\com.ibm.etools.egl.java.runtime_8.0.0.v20121031_1216\" />
+	<property name="TOMCAT_RUNTIME_PATH" value="E:\studio\apache-tomcat-6.0.29" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${ECLIPSE_HOME}/Ant/ant-contrib/ant-contrib-1.0b3.jar" onerror="ignore" />
+
+	<property name="workspace" value="E:\temp2" />	
+	<property name="buildFolder" value="build" />
+	<property name="buildFile" value="build.xml" />
+
+	<dirset dir="${workspace}" id="project.dirs">
+		<present targetdir="${workspace}">
+			<mapper type="glob" from="*" to="*/.project" />
+		</present>
+	</dirset>
+
+	<target name="init" description="description">
+		<echo message="setup workspace environment" />
+		<disableIndexer name="all" />
+		<createWSRuntime targetId="Apache Tomcat v6.0" path="${TOMCAT_RUNTIME_PATH}" typeId="org.eclipse.jst.server.tomcat.runtime.60" />
+		<workspacePreferenceSet 
+    		preferenceScope="instance" 
+    		preferenceQualifier="org.eclipse.jdt.core"
+    		preferenceName="org.eclipse.jdt.core.classpathVariable.EGL_GENERATORS_PLUGINDIR" 
+    		preferenceValue="${RBD_JAVA_RUNTIME_HOME}"
+    		useEclipsePrefs="true" />
+	</target>
+
+	<target name="importProjects" depends="init" description="import projects">
+		<echo message="import projects" />
+		<for param="projectDir">
+			<dirset refid="project.dirs" />
+			<sequential>
+				<var name="project.name" unset="true"/>
+				<basename property="project.name" file="@{projectDir}" />
+				<projectImport ProjectName="${project.name}" ProjectLocation="${workspace}/${project.name}" />
+			</sequential>
+		</for>
+	</target>
+
+	<target name="importProject">
+		<projectImport ProjectName="${project}" ProjectLocation="${workspace}/${project}" />
+		<antcall target="clearDirectory">
+			<param name="project" value="${project}" />
+			<param name="dir" value="EGLGen" />
+		</antcall>
+		<antcall target="clearDirectory">
+			<param name="project" value="${project}" />
+			<param name="dir" value="EGLBin" />
+		</antcall>
+		<antcall target="clearNonWebProject">
+			<param name="project" value="${project}" />
+		</antcall>
+	</target>
+
+	<target name="importWebProject">
+		<projectImport ProjectName="${project}" ProjectLocation="${workspace}/${project}" />
+		<antcall target="clearDirectory">
+			<param name="project" value="${project}" />
+			<param name="dir" value="EGLGen" />
+		</antcall>
+		<antcall target="clearDirectory">
+			<param name="project" value="${project}" />
+			<param name="dir" value="EGLBin" />
+		</antcall>
+		<antcall target="clearWebProject">
+			<param name="project" value="${project}" />
+		</antcall>
+	</target>
+
+	<target name="clearWebProject">
+		<antcall target="clearDirectory">
+			<param name="dir" value="WebContent\WEB-INF\classes" />
+		</antcall>
+		<copy file="${RBD_JAVA_RUNTIME_JAR}" todir="${workspace}/${project}\WebContent\WEB-INF\lib" />
+	</target>
+
+	<target name="clearNonWebProject">
+		<antcall target="clearDirectory">
+			<param name="dir" value="bin" />
+		</antcall>
+	</target>
+
+	<target name="clearDirectory">
+		<mkdir dir="${workspace}/${project}/${dir}" />
+		<delete includeemptydirs="true">
+			<fileset dir="${workspace}/${project}/${dir}" includes="**/*" excludes="JavaSource" />
+		</delete>
+	</target>
+
+	<target name="default" depends="importProjects">
+		<echo message="start build process" />
+		<workspaceBuild buildtype="full" FailOnError="true" />
+		<!-- <for param="projectDir">
+			<dirset refid="project.dirs" />
+			<sequential>
+				<var name="project.name" unset="true"/>
+				<basename property="project.name" file="@{projectDir}" />
+				<echo message="build project: ${project.name} with build file ${workspace}/${project.name}/${buildFolder}/${buildFile}" />
+				<var name="builder.exists" unset="true"/>
+				<available file="${workspace}/${project.name}/${buildFolder}/${buildFile}" property="builder.exists" />
+				<if>
+					<equals arg1="${builder.exists}" arg2="true" />
+					<then>
+						<echo message="Run build script of ${project.name}" />
+						<ant dir="${workspace}/${project.name}/${buildFolder}" />
+					</then>
+				</if>
+			</sequential>
+		</for>  -->
+	</target>
+</project>

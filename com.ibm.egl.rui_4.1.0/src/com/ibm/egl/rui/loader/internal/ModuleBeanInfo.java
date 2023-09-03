@@ -1,0 +1,15 @@
+// Generated at Sun Sep 03 10:03:15 AST 2023 by EGL 8.0.0.v20180914_0609
+// No APARs installed.
+package com.ibm.egl.rui.loader.internal;
+
+public class ModuleBeanInfo extends com.ibm.javart.util.JavartBeanInfo
+{
+	private static final long serialVersionUID = 70L;
+	
+	protected void initProperties() {
+		addProperty( "name", "getname_AsString", "setname_AsString" );
+		addProperty( "javascript", "getjavascript_AsString", "setjavascript_AsString" );
+		addProperty( "moduleType", "getmoduleType_AsString", "setmoduleType_AsString" );
+		addProperty( "ezeIdx" );
+	}
+}

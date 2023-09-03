@@ -1,0 +1,4 @@
+package records;
+record ARecord  	
+	aString string;	
+end

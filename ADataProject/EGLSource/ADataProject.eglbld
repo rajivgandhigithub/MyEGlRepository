@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" "">
+
+<EGL>
+	
+	<BuildDescriptor name="ADataProjectJavaBuildOptions" 
+		genProject="ADataProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="ADataProject"
+		>
+  	</BuildDescriptor>
+	 
+	<BuildDescriptor name="ADataProjectDebugBuildOptions" 
+		genProject="ADataProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="ADataProject"
+		>
+	</BuildDescriptor>
+	
+	<BuildDescriptor name="ADataProjectJavaScriptBuildOptions" 
+		genProject="ADataProject"
+		system="JAVASCRIPT"
+		J2EE="NO"
+		deploymentDescriptor="ADataProject"
+		>	
+	</BuildDescriptor>
+	
+</EGL>

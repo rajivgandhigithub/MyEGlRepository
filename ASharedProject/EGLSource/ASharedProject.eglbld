@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" "">
+
+<EGL>
+	
+	<BuildDescriptor name="ASharedProjectJavaBuildOptions" 
+		genProject="ASharedProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="ASharedProject"
+		>
+  	</BuildDescriptor>
+	 
+	<BuildDescriptor name="ASharedProjectDebugBuildOptions" 
+		genProject="ASharedProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="ASharedProject"
+		>
+	</BuildDescriptor>
+	
+	<BuildDescriptor name="ASharedProjectJavaScriptBuildOptions" 
+		genProject="ASharedProject"
+		system="JAVASCRIPT"
+		J2EE="NO"
+		deploymentDescriptor="ASharedProject"
+		>	
+	</BuildDescriptor>
+	
+</EGL>

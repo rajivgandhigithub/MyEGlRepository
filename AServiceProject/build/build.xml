@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="deployService" default="default">
+	<property name="projectPath" value="AServiceProject" />
+	<target name="default" description="Deploy AServiceProject">
+		<egl.deploy deployDescriptorFile="${projectPath}\EGLSource\AServiceProject.egldd" failOnError="true"/>
+	</target>
+</project>

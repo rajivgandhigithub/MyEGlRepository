@@ -1,0 +1,5 @@
+<deploy package="libraries" partName="ALibrary" partType="Library" version="2">
+	<buildDescriptors>
+		<buildDescriptor name="ASharedProjectJavaBuildOptions" fileName="\ASharedProject\EGLSource\ASharedProject.eglbld" egldd="" genProject="ASharedProject"/>
+	</buildDescriptors>
+</deploy>

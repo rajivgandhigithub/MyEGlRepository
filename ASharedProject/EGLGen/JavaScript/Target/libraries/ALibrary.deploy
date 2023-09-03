@@ -1,0 +1,9 @@
+<deploy package="libraries" partName="ALibrary" partType="BasicLibrary" version="2">
+	<buildDescriptors>
+		<buildDescriptor name="ASharedProjectJavaScriptBuildOptions" fileName="\ASharedProject\EGLSource\ASharedProject.eglbld" egldd="" genProject="ASharedProject"/>
+	</buildDescriptors>
+	<includes>
+		<include>records/ARecord.js</include>
+	</includes>
+	<ruiHandler/>
+</deploy>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><servicemappings>
+  <servicemapping classname="services.ARESTService">
+    <uri httpmethod="POST" in-encoding="JSON" out-encoding="JSON">/ARESTService</uri>
+  </servicemapping>
+  <contextroot>/ATomcatRuntimeProject/restservices</contextroot>
+</servicemappings>

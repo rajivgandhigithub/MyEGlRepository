@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eglpath>
+	<eglpathentry kind="src" path="EGLSource"/>
+	<eglpathentry kind="src" path="/ADataProject/"/>
+	<eglpathentry kind="src" path="/ASharedProject/"/>
+	<eglpathentry kind="src" path="/AServiceProject/"/>
+	<eglpathentry kind="lib" path="/Widgets/com.ibm.egl.rui_4.1.1.eglar" exported="true"/>
+	<eglpathentry kind="output" path="EGLbin"/>
+</eglpath>

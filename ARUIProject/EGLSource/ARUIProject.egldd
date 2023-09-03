@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<egl:deployment xmlns:egl="http://www.ibm.com/xmlns/egl/deployment/7.0">
+  <egl:target.project name="ATomcatRuntimeProject"/>
+  <include location="/AServiceProject/EGLSource/AServiceProject.egldd"/>
+  <webserviceRuntime>JAXWS</webserviceRuntime>
+</egl:deployment>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><serviceGroup>
+  <service name="ASOAPServiceService">
+    <messageReceivers>
+      <messageReceiver class="org.apache.axis2.jaxws.server.JAXWSMessageReceiver" mep="http://www.w3.org/2004/08/wsdl/in-out"/>
+    </messageReceivers>
+    <parameter name="ServiceClass">ws.services.ASOAPService</parameter>
+    <parameter name="useOriginalwsdl">true</parameter>
+    <operation name="invoke"/>
+  </service>
+</serviceGroup>

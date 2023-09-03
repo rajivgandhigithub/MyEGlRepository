@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource name="ADataProject">
+	<storedValue key="EGLProjectSecondaryMigrationVersion" value="9.0"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptTargetPath" value="ADataProject/EGLSource/ADataProject.eglbld"/>
+	<storedValue key="EGLTargetRuntimeMask" value="1"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptDebugPath" value="ADataProject/EGLSource/ADataProject.eglbld"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugName" value="ADataProjectDebugBuildOptions"/>
+	<storedValue key="EGLProjectMigrationVersion" value="8.0.0"/>
+	<storedValue key="DefaultBuildDescriptorJavaTargetPath" value="ADataProject/EGLSource/ADataProject.eglbld"/>
+	<storedValue key="EGLProjectFeatureMask" value="0"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugPath" value="ADataProject/EGLSource/ADataProject.eglbld"/>
+	<storedValue key="DefaultBuildDescriptorJavaTargetName" value="ADataProjectJavaBuildOptions"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptDebugName" value="ADataProjectJavaScriptBuildOptions"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptTargetName" value="ADataProjectJavaScriptBuildOptions"/>
+</resource>

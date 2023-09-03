@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" "">
+
+<EGL>
+<BuildDescriptor
+	name="ACobolProjectDebugBuildOptions"
+	genProject="ACobolProject"
+	system="WIN"
+	J2EE="NO"
+	genProperties="GLOBAL"
+	genDataTables="YES"
+	dbms="DERBY"
+	sqlValidationConnectionURL="jdbc:derby:E:\workspace\ws8510\AntBuild3\.metadata\.plugins\com.ibm.datatools.db2.cloudscape.driver\SAMPLE;create=true"
+	sqlJDBCDriverClass="org.apache.derby.jdbc.EmbeddedDriver"
+	sqlDB="jdbc:derby:E:\workspace\ws8510\AntBuild3\.metadata\.plugins\com.ibm.datatools.db2.cloudscape.driver\SAMPLE;create=true"
+	deploymentDescriptor="ACobolProject"
+>
+</BuildDescriptor>
+<BuildDescriptor
+	name="ACobolProjectCOBOLBuildOptions"
+	system="ZOSBATCH"
+	destHost=""
+	destPort=""
+	destUserID=""
+	destPassword=""
+	projectID=""
+	genDataTables="YES"
+	genFormGroup="YES"
+	genHelpFormGroup="YES"
+	sqlDB=""
+	sqlID=""
+	sqlPassword=""
+	deploymentDescriptor="ACobolProject"
+	prep="NO" genProject="ACobolProject">
+	<symbolicParameter name="DSNLOAD">
+		<symbolicValue>
+			<![CDATA[]]>
+		</symbolicValue>
+	</symbolicParameter>
+	<symbolicParameter name="ELA">
+		<symbolicValue>
+			<![CDATA[]]>
+		</symbolicValue>
+	</symbolicParameter>
+</BuildDescriptor>
+</EGL>

@@ -1,0 +1,97 @@
+package ruihandlers;
+import libraries.* ;
+import services.* ;
+import items.* ;
+import records.* ;
+import com.ibm.egl.rui.widgets.Box;
+import com.ibm.egl.rui.widgets.DataGrid;
+import com.ibm.egl.rui.widgets.Button;
+import com.ibm.egl.rui.widgets.TextField;
+handler ASimpleRUI type RUIhandler { initialUI = [ ui ], 
+	onConstructionFunction = start, 
+	cssFile="css/ARUIProject.css", 
+	title="A Simple RUI Handler (No Service Invocations)",
+	includeReferencedFunctions = yes
+	}
+	
+	ui Box{ children = [ DataGrid ] };
+	DataGrid DataGrid{
+		behaviors = [ ],
+		headerBehaviors = [ ],
+		columns = [
+			new com.ibm.egl.rui.widgets.DataGridColumn{name = "result", displayName = "Results", width = 800 }
+		],
+		data = [ ]
+	};
+	
+	use ALibrary ; 
+	
+	value string = "ARUIHandler value" ;
+	variation string ;
+	timeoutLimit int = 10*1000 ;	
+	
+	aString aStringType ;
+	aRec aRecord ;
+		
+	function start ()
+						
+		variation = "ARUIHandler: ARUIHandler started" ;
+		success ( ) ;
+		
+		variation = "ARUIHandler: GetValueFunction stand alone function part access" ;
+		if ( getValueFunction ( ) == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+		
+		variation = "ARUIHandler: ALibrary access" ;
+		ALibrary.setValue ( value ) ;
+		if ( ALibrary.getValue ( ) == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+		
+		variation = "ARUIHandler: ALibrary access using shared item type" ;
+		aString = value ;
+		ALibrary.setValue ( aString ) ;
+		if ( ALibrary.getValue ( ) == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+		
+		variation = "ARUIHandler: ALibrary access using shared record type" ;
+		aRec.aString = value ;
+		ALibrary.setValue ( aRec.aString ) ;
+		if ( ALibrary.getValue ( ) == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+		
+	end
+	
+	function success ( ) 
+		showResult ( "Success - " + variation ) ;
+	end
+	
+	function failure ( ) 
+		showResult ( "Failure - " + variation ) ;
+	end
+	
+	function exception ( ex ServiceInvocationException ) 
+		showResult ( "Exception Message: " + ex.message 
+		+ ", " + ex.detail1 
+		+ ", " + ex.detail2 
+		+ ", " + ex.detail3
+		) ; 
+	end
+	
+	function showResult ( result string in )
+		DataGrid.data.appendElement ( new Dictionary { result = result} ) ;
+		DataGrid.render ( ) ;
+	end
+	
+end

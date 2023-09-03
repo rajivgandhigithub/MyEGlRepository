@@ -1,0 +1,10 @@
+package com.ibm.egl.rui.loader.internal;
+
+// basic library
+library ModuleTypeLib type BasicLibrary {}
+	const css String = "cssFile";
+	const property String = "propertyFile";
+	const imports String = "importFile";
+	const runtimeProperty String = "runtimePropertyFile";
+	const include String = "includeFile";
+end

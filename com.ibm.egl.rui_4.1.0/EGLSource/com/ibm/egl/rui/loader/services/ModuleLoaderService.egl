@@ -1,0 +1,271 @@
+/*
+ * Licensed Materials - Property of IBM
+ *
+ * Copyright IBM Corporation 2008, 2011. All Rights Reserved.
+ *
+ * U.S. Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA DP Schedule Contract with IBM Corp.
+ */
+package com.ibm.egl.rui.loader.services;
+
+import com.ibm.egl.rui.loader.internal.Module;
+import com.ibm.egl.rui.loader.internal.ModuleTypeLib;
+import com.ibm.egl.rui.loader.internal.XMLLib;
+
+ExternalType File type JavaObject
+    {packageName = "com.ibm.egl.rui.loader", 
+    javaName = "File"}
+
+	constructor(project String in, name String in, port int in);
+	function getURL() returns(String);
+	function getContents() returns(String);
+	function getContentsForImport() returns(String);
+end
+
+service ModuleLoaderService
+	
+	use XMLLib;
+	referencedDeployFiles Dictionary{};
+	filterDynamicLoadingHandlers Dictionary{};
+	
+	function getModules(project String in, name String in, port int in, alocale String in, dynamicLoadingList String in) returns(Module[])
+		referencedDeployFiles.removeAll();
+		filterDynamicLoadingHandlers.removeAll();
+		modules Module[0];
+		strLen int = StrLib.byteLen(dynamicLoadingList);
+		i int = 1;
+		
+		while(i <= strLen)
+			dynamicHandler String = StrLib.getNextToken(dynamicLoadingList, i, ",");
+			dynamicHandler = resolvePackageName(dynamicHandler);
+			if(name != dynamicHandler)
+				filterDynamicLoadingHandlers[dynamicHandler] = dynamicHandler;
+			end
+		end
+		
+		resolveDeploy(project, name, port, modules, alocale);
+		debug("return "+modules.getSize()+" modules");	
+		resolveDuplicated(modules);		
+		return (modules);		
+	end
+	
+	private function resolveDuplicated(modules Module [] inout)
+		newModules Module[0];
+		filterDict Dictionary{};
+		for (n int from 1 to modules.getSize())
+			if(!filterDict.containsKey(modules[n].name))
+				filterDict[modules[n].name] = modules[n].name;
+				newModules ::= modules[n];
+			end
+		end
+		
+		modules = newModules;
+	end
+	
+	private function resolvePackageName(fullname String) returns(String)
+		delimiters String = ".";
+		tokenCount Int = strlib.getTokenCount(fullname, delimiters);
+		if(tokenCount <2 )
+			return(fullname);
+		end
+		tokens String[0];
+		i Int = 1;
+		strLenth Int = strlib.byteLen(fullname);
+		token String = "";
+		while(i <= strLenth)
+			token = strlib.getNextToken(fullname, i, delimiters);
+			if(null != token)
+				tokens.appendElement(token);
+			end
+		end
+		
+		handlerName String = tokens[tokenCount];
+		packageName String = fullName[1 : Strlib.characterLen(fullName) - Strlib.characterLen(handlerName) -1];
+		return( strlib.lowerCase(packageName) + "." + handlerName);
+	end
+	
+	private function resolveDeploy(project String in, name String, port int in, modules Module[] inout, alocale String in)
+		if(referencedDeployFiles.containsKey(name) || filterDynamicLoadingHandlers.containsKey(name))
+			return;
+		end
+		referencedDeployFiles[name] = name;
+		deploy RUIDeploy{};
+		name = replaceAll(name, ".", "/");
+		xml String = getContents(project, name + ".deploy", port);
+		if (xml != "")
+			convertFromXML(xml, deploy);
+			debug("Loaded XML");
+			if (deploy.includes.include != null)
+				for (n int from 1 to deploy.includes.include.getSize())
+					include String = deploy.includes.include[n];
+					len int = strlib.characterLen(include);
+					if(len > 3 && include[len - 2 : len] == ".js")
+						modules ::=  new Module {
+								name = include,
+								javascript = "",
+								moduleType = ModuleTypeLib.include
+						};		
+						includeJsFile String = replaceAll(include, "/", ".");
+						includeFieLen int = strlib.characterLen(include);
+						includeJsFile = include[1 : includeFieLen - 3];
+						resolveImportDeploy(project, includeJsFile, port, modules, alocale);		
+					end
+				end
+			end
+			if (deploy.propertyFiles.propertyFile != null)
+				debug("add propertyfiles");
+				for (n int from 1 to deploy.propertyFiles.propertyFile.getSize())
+					if("" != deploy.propertyFiles.propertyFile[n])
+						propertiesFileExists boolean = false;
+						propertyFileName String;
+						if(null != alocale && "" != alocale)
+							propertyFileName = "properties/" + deploy.propertyFiles.propertyFile[n] + "-"+ alocale +".js";
+							propertiesFileExists  = checkPropertiesFileExists(project, propertyFileName, port);
+						end
+						if(!propertiesFileExists)
+							propertyFileName = "properties/" + deploy.propertyFiles.propertyFile[n]+".js";
+						end
+						modules ::= new Module {
+							name = propertyFileName,
+							javascript = "",
+							moduleType = ModuleTypeLib.property
+						};
+					end
+				end
+			end
+			debug("add imports");
+			if (deploy.imports._import != null)
+				for (n int from 1 to deploy.imports._import.getSize())
+					_import String = deploy.imports._import[n];
+					modules ::= new Module {
+						name = _import,
+						javascript = "",
+						moduleType = ModuleTypeLib.imports
+					};
+				end
+			end	
+			debug("add referenced");
+			if (deploy.referencedHandlers.referencedHandler != null)
+				j int = 0;
+				for(j from 1 to deploy.referencedHandlers.referencedHandler.getSize())
+					if("" != deploy.referencedHandlers.referencedHandler[j])
+						dynamicHandlerJs string  = deploy.referencedHandlers.referencedHandler[j];
+						referencedHandler String = replaceAll(dynamicHandlerJs, "/", ".");
+						len int = strlib.characterLen(referencedHandler);
+						referencedHandler = referencedHandler[1 : len - 3];
+						resolveDeploy(project, referencedHandler, port, modules, alocale);
+					end
+				end
+			end	
+		end
+	end
+	
+	private function resolveImportDeploy(project String in, name String, port int in, modules Module[] inout, alocale String in)
+		if(referencedDeployFiles.containsKey(name) || filterDynamicLoadingHandlers.containsKey(name))
+			return;
+		end
+		referencedDeployFiles[name] = name;
+		deploy RUIDeploy{};
+		name = replaceAll(name, ".", "/");
+		xml String = getContentsForImport(project, name + ".deploy", port);
+		if (xml != "")
+			convertFromXMLForImport(xml, deploy);
+			debug("add imports");
+			if (deploy.imports._import != null)
+				for (n int from 1 to deploy.imports._import.getSize())
+					_import String = deploy.imports._import[n];
+					modules ::= new Module {
+						name = _import,
+						javascript = "",
+						moduleType = ModuleTypeLib.imports
+					};
+				end
+			end	
+		end
+	end
+	
+	function getContents(project String in, name String in, port int in) returns(String)
+		file File = new File(project, name, port);
+		try
+			return (file.getContents());
+		onException (e AnyException)
+			SysLib.writeStderr("Error: "+file.getURL()+" "+e.message);
+		end
+		return ("");
+	end
+	
+	private function getContentsForImport(project String in, name String in, port int in) returns(String)
+		file File = new File(project, name, port);
+		try
+			return (file.getContentsForImport());
+		onException (e AnyException)
+		end
+		return ("");
+	end
+	
+	function checkPropertiesFileExists(project String in, name String in, port int in) returns(boolean)
+		file File = new File(project, name, port);
+		const veNotFoundText string = "document.write(\"Could not open";
+		length int = strlib.characterLen(veNotFoundText);
+		try
+			content string;
+			content = file.getContents();
+			if(strlib.characterLen(content)>length)
+				if(content[1:length]==veNotFoundText)
+					return (false);
+				end
+			end
+		onException (e AnyException)
+			return (false);
+		end
+		return (true);
+	end
+
+		
+	function replaceAll(s String in, original String in, replacement String in) returns(String)
+		index int = strlib.indexOf(s, original);
+		len int = strlib.characterLen(s);
+		try
+			while (index > 0)
+				s = s[1 : index - 1] + replacement + s[index + 1: len];
+				index = strlib.indexOf(s, original);
+			end
+		onException (e AnyException)
+		end
+		return (s);
+	end
+	
+	function getLocale() returns(String)
+		return ("en_US");
+	end
+
+end
+
+Record LoadResult
+	names String[];
+	text String[];
+end
+
+record RuiDeploy { }
+	includes RUIDeploy_Include?; 
+	imports RUIDeploy_Import?; 
+	runtimePropertyFiles RUIDeploy_runtimePropertyFile?; 
+	referencedHandlers RUIDeploy_Referenced?;
+	propertyFiles RUIDeploy_propertyFile?; 
+end
+
+record RUIDeploy_runtimePropertyFile
+	runtimePropertyFile String[];
+end
+record RUIDeploy_propertyFile
+	propertyFile String[];
+end
+record RUIDeploy_Include
+	include String[];
+end
+record RUIDeploy_Import
+	_import String[];
+end
+record RUIDeploy_Referenced
+	referencedHandler String[];
+end

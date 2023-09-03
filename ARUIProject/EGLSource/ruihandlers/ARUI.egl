@@ -1,0 +1,227 @@
+package ruihandlers;
+import libraries.* ;
+import services.* ;
+import items.* ;
+import records.* ;
+import com.ibm.egl.rui.widgets.Box;
+import com.ibm.egl.rui.widgets.DataGrid;
+import com.ibm.egl.rui.widgets.Button;
+import com.ibm.egl.rui.widgets.TextField;
+handler ARUI type RUIhandler { initialUI = [ ui ], 
+	onConstructionFunction = start, 
+	cssFile="css/ARUIProject.css", 
+	title="RUI Handler A",
+	includeReferencedFunctions = yes
+	}
+	
+	ui Box{ children = [ DataGrid ] };
+	DataGrid DataGrid{
+		behaviors = [ ],
+		headerBehaviors = [ ],
+		columns = [
+			new com.ibm.egl.rui.widgets.DataGridColumn{name = "result", displayName = "Results", width = 800 }
+		],
+		data = [ ]
+	};
+	
+	use ALibrary ; 
+	
+	aDedicatedEGLService ADedicatedEGLService { @DedicatedService } ;
+	aRESTService ARESTService { @BindService } ;  
+	aSOAPService ASOAPService { @BindService } ;  
+	iRESTService IARESTService { @BindService } ;  
+	iSOAPService IASOAPService { @BindService } ;  
+	
+	value string = "ARUIHandler value" ;
+	variation string ;
+	timeoutLimit int = 10*1000 ;	
+	
+	aString aStringType ;
+	aRec aRecord ;
+		
+	function start ()
+		try 
+						
+			variation = "ARUIHandler: ARUIHandler started" ;
+			success ( ) ;
+			
+			variation = "ARUIHandler: GetValueFunction stand alone function part access" ;
+			if ( getValueFunction ( ) == value )
+				success ( ) ;
+			else
+				failure ( ) ;
+			end
+			
+			variation = "ARUIHandler: ALibrary access" ;
+			ALibrary.setValue ( value ) ;
+			if ( ALibrary.getValue ( ) == value )
+				success ( ) ;
+			else
+				failure ( ) ;
+			end
+			
+			variation = "ARUIHandler: ALibrary access using shared item type" ;
+			aString = value ;
+			ALibrary.setValue ( aString ) ;
+			if ( ALibrary.getValue ( ) == value )
+				success ( ) ;
+			else
+				failure ( ) ;
+			end
+			
+			variation = "ARUIHandler: ALibrary access using shared record type" ;
+			aRec.aString = value ;
+			ALibrary.setValue ( aRec.aString ) ;
+			if ( ALibrary.getValue ( ) == value )
+				success ( ) ;
+			else
+				failure ( ) ;
+			end
+						
+			call aDedicatedEGLService.returnValue ( value )
+				returning to aDedicatedEGLServiceCallback
+				onException aDedicatedEGLServiceExceptionHandler
+   				{ timeout = 10000 } ;   									
+						  		
+			call aRESTService.returnValue ( value )
+				returning to aRestServiceCallback
+				onException aRestServiceExceptionHandler
+   				{ timeout = 10000 } ;
+			   				
+			call aSOAPService.returnValue ( value )
+				returning to aSOAPServiceCallback
+				onException aSOAPServiceExceptionHandler
+   				{ timeout = 10000 } ; 
+   				
+   			call iRESTService.returnValue ( value )
+				returning to iRestServiceCallback
+				onException iRestServiceExceptionHandler
+   				{ timeout = 10000 } ;
+			   				
+			call iSOAPService.returnValue ( value )
+				returning to iSOAPServiceCallback
+				onException iSOAPServiceExceptionHandler
+   				{ timeout = 10000 } ; 
+   									
+		onException ( ex anyException ) 
+			failure ( ) ;
+			exception ( ex ) ;
+		end 
+	end
+	
+	function aDedicatedEGLServiceCallback ( value string in )
+		variation = "ARUIHandler: aDedicatedEGLService access" ;
+		if ( this.value == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+	end
+	
+	function aDedicatedEGLServiceExceptionHandler ( ex anyException in )
+		variation = "ARUIHandler: aDedicatedEGLService access" ;
+		failure ( ) ;
+		exception ( ex ) ;
+	end 
+		
+	function aRestServiceCallback ( value string in )
+		setRESTVariation ( ) ;
+		if ( this.value == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+	end
+	
+	function aRestServiceExceptionHandler ( ex anyException in )
+		setRESTVariation ( ) ;
+		failure ( ) ;
+		exception ( ex ) ;
+	end 
+	
+	function setRESTVariation ( )
+		variation = "ARUIHandler: ARESTService access at " + serviceLib.getRestServiceLocation( aRESTService ) ;
+	end
+	
+	function iRestServiceCallback ( value string in )
+		setiRESTVariation ( ) ;
+		if ( this.value == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+	end
+	
+	function iRestServiceExceptionHandler ( ex anyException in )
+		setiRESTVariation ( ) ;
+		failure ( ) ;
+		exception ( ex ) ;
+	end 
+	
+	function setiRESTVariation ( )
+		variation = "ARUIHandler: IARESTService access at " + serviceLib.getRestServiceLocation( iRESTService ) ;
+	end
+		
+	function aSoapServiceCallback ( value string in )
+		setSOAPVariation ( ) ;
+		if ( this.value == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+	end
+	
+	function aSoapServiceExceptionHandler ( ex anyException in )
+		setSOAPVariation ( ) ;
+		failure ( ) ;
+		exception ( ex ) ;
+	end 
+	
+	function setSOAPVariation ( )
+//		variation = "ARUIHandler: ASOAPService invocation not implemented" ;
+		variation = "ARUIHandler: ASOAPService access at " + serviceLib.getWebServiceLocation( aSOAPService ) ;
+	end
+	
+		
+	function iSoapServiceCallback ( value string in )
+		setiSOAPVariation ( ) ;
+		if ( this.value == value )
+			success ( ) ;
+		else
+			failure ( ) ;
+		end
+	end
+	
+	function iSoapServiceExceptionHandler ( ex anyException in )
+		setiSOAPVariation ( ) ;
+		failure ( ) ;
+		exception ( ex ) ;
+	end 
+	
+	function setiSOAPVariation ( )
+//		variation = "ARUIHandler: IASOAPService invocation not implemented" ;
+		variation = "ARUIHandler: IASOAPService access at " + serviceLib.getWebServiceLocation( iSOAPService ) ;
+	end
+	
+	function success ( ) 
+		showResult ( "Success - " + variation ) ;
+	end
+	
+	function failure ( ) 
+		showResult ( "Failure - " + variation ) ;
+	end
+	
+	function exception ( ex ServiceInvocationException ) 
+		showResult ( "Exception Message: " + ex.message 
+		+ ", " + ex.detail1 
+		+ ", " + ex.detail2 
+		+ ", " + ex.detail3
+		) ; 
+	end
+	
+	function showResult ( result string in )
+		DataGrid.data.appendElement ( new Dictionary { result = result} ) ;
+		DataGrid.render ( ) ;
+	end
+	
+end

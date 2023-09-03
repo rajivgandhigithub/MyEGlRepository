@@ -1,0 +1,18 @@
+package services;
+
+interface IAEGLService { }
+	function returnValue(value string in) returns (string);
+end
+
+interface IADedicatedEGLService { }
+	function returnValue(value string in) returns (string);
+end
+
+interface IARESTService { }
+	function returnValue(value string in) returns (string);
+end
+
+interface IASOAPService { }
+	function returnValue(value string in) returns (string);
+end
+

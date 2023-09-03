@@ -1,0 +1,20 @@
+package test;
+
+// basic program
+//
+program Program2 type BasicProgram {}
+	
+	// Use Declarations
+	//use usePartReference;
+	
+  	// Constant Declarations
+	const constantName string = "literalString";
+	
+	// Variable Declarations
+	variableName string;
+	
+	function main()
+		syslib.writeStdout("hello world 2");
+	end
+	
+end

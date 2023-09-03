@@ -1,0 +1,19 @@
+package services;
+import libraries.* ;
+import items.* ;
+import records.* ;
+// service
+service ASOAPService
+
+	use ALibrary ;
+		
+	function returnValue ( value string in ) returns ( string )
+		aValue AStringType ;
+		aRec aRecord ;
+		aValue = value ;
+		aRec.aString = aValue ;
+		ALibrary.setValue ( aRec.aString ) ;
+		return ( ALibrary.getValue() ) ;
+	end
+	
+end 

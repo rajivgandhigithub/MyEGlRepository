@@ -1,0 +1,21 @@
+package libraries;
+import items.* ;
+import records.* ;
+
+// basic library
+library ALibrary type BasicLibrary {} {
+	includeReferencedFunctions = yes
+	}
+
+	private value aStringType = "ALibrary value" ;
+	private aRec aRecord ;
+		
+	function setValue( value string )
+		this.value = value ;
+	end
+	
+	function getValue ( ) returns ( aStringType ) 
+		return ( getValueFunction ( ) ) ;
+	end
+	
+end

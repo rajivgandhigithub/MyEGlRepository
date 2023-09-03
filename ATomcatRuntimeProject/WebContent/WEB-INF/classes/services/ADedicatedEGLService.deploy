@@ -1,0 +1,5 @@
+<deploy package="services" partName="ADedicatedEGLService" partType="Service" version="2">
+	<buildDescriptors>
+		<buildDescriptor name="AServiceProjectJavaBuildOptions" fileName="\AServiceProject\EGLSource\AServiceProject.eglbld" egldd="aserviceproject" genProject="AServiceProject"/>
+	</buildDescriptors>
+</deploy>

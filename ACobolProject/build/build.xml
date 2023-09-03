@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="generateCobol" default="default">
+	<target name="default" description="Generate ACobolProject">
+		<egl.generate project="ACobolProject" part="test.*" failOnError="true"/>
+	</target>
+</project>

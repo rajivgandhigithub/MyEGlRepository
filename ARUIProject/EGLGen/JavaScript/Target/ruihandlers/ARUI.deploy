@@ -1,0 +1,36 @@
+<deploy package="ruihandlers" partName="ARUI" partType="RUIHandler" version="2">
+	<buildDescriptors>
+		<buildDescriptor name="ARUIProjectJavaScriptBuildOptions" fileName="\ARUIProject\EGLSource\ARUIProject.eglbld" egldd="ARUIProject" genProject="ARUIProject"/>
+	</buildDescriptors>
+	<includes>
+		<include>com/ibm/egl/rui/widgets/DataGridUtil.js</include>
+		<include>com/ibm/egl/rui/widgets/UtilLibNative.js</include>
+		<include>com/ibm/egl/rui/widgets/Div.js</include>
+		<include>com/ibm/egl/rui/widgets/Button.js</include>
+		<include>com/ibm/egl/rui/widgets/HTML.js</include>
+		<include>com/ibm/egl/rui/widgets/BoxLib.js</include>
+		<include>com/ibm/egl/rui/widgets/GridLayoutLib.js</include>
+		<include>com/ibm/egl/rui/widgets/GridLayoutData.js</include>
+		<include>com/ibm/egl/rui/widgets/GridLayout.js</include>
+		<include>com/ibm/egl/rui/widgets/UtilLib.js</include>
+		<include>com/ibm/egl/rui/widgets/Box.js</include>
+		<include>com/ibm/egl/rui/widgets/DataGridColumn.js</include>
+		<include>com/ibm/egl/rui/widgets/DataGridLib.js</include>
+		<include>com/ibm/egl/rui/widgets/Span.js</include>
+		<include>com/ibm/egl/rui/widgets/DataGrid.js</include>
+		<include>records/ARecord.js</include>
+		<include>libraries/ALibrary.js</include>
+		<include>ruihandlers/ARUI.js</include>
+	</includes>
+	<imports>
+		<import>ARUIProject-bnd.js</import>
+	</imports>
+	<cssfiles>
+		<cssfile>css/ARUIProject.css</cssfile>
+		<cssfile>css/com.ibm.egl.rui_4.1.1.css</cssfile>
+	</cssfiles>
+	<eglbindings>
+		<eglbinding alias="" name="" serviceName="services.ADedicatedEGLService" />
+	</eglbindings>
+	<ruiHandler title="RUI Handler A" theme="claro"/>
+</deploy>

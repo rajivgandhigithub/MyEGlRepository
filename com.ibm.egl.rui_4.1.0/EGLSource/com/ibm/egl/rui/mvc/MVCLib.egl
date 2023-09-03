@@ -1,0 +1,15 @@
+package com.ibm.egl.rui.mvc;
+
+library MVCLib type BasicLibrary {}
+
+	private currentController Controller = null;
+
+	function getCurrentContext() returns(Controller)
+		return(currentController);
+	end
+	
+	function setCurrentContext(acontroller Controller in)
+		this.currentController = acontroller;
+	end
+	
+end

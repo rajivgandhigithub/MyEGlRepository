@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource name="AServiceProject">
+	<storedValue key="EGLProjectSecondaryMigrationVersion" value="9.0"/>
+	<storedValue key="EGLTargetRuntimeMask" value="1"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugName" value="AServiceProjectDebugBuildOptions"/>
+	<storedValue key="EGLProjectMigrationVersion" value="8.0.0"/>
+	<storedValue key="DefaultBuildDescriptorJavaTargetPath" value="AServiceProject/EGLSource/AServiceProject.eglbld"/>
+	<storedValue key="EGLProjectFeatureMask" value="16"/>
+	<storedValue key="DefaultBuildDescriptorJavaTargetName" value="AServiceProjectJavaBuildOptions"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugPath" value="AServiceProject/EGLSource/AServiceProject.eglbld"/>
+	<resource name="EGLSource">
+		<resource name="AServiceProject.egldd">
+			<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugName" value="AServiceProjectDebugBuildOptions"/>
+			<storedValue key="DefaultBuildDescriptorJavaTargetPath" value="AServiceProject/EGLSource/AServiceProject.eglbld"/>
+			<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugPath" value="AServiceProject/EGLSource/AServiceProject.eglbld"/>
+			<storedValue key="DefaultBuildDescriptorJavaTargetName" value="AServiceProjectJavaBuildOptions"/>
+		</resource>
+	</resource>
+</resource>

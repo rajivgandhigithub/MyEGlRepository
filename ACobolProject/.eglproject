@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource name="ACobolProject">
+	<storedValue key="EGLProjectSecondaryMigrationVersion" value="9.0"/>
+	<storedValue key="EGLTargetRuntimeMask" value="4"/>
+	<storedValue key="DefaultBuildDescriptorCobolTargetName" value="ACobolProjectCOBOLBuildOptions"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugName" value="ACobolProjectDebugBuildOptions"/>
+	<storedValue key="EGLProjectMigrationVersion" value="8.0.0"/>
+	<storedValue key="DefaultBuildDescriptorCobolTargetPath" value="ACobolProject/EGLSource/ACobolProject.eglbld"/>
+	<storedValue key="EGLProjectFeatureMask" value="16"/>
+	<storedValue key="DefaultBuildDescriptorNonJavaScriptDebugPath" value="ACobolProject/EGLSource/ACobolProject.eglbld"/>
+</resource>

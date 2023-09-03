@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="callAnt" default="default">
+	<target name="default">
+		<java classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
+			<arg line="-clean -application com.ibm.etools.j2ee.ant.RunAnt -data ${workspace}
+				-Dwtp.autotest.noninteractive=true -DEGL_REPORT_BUILD_TIMES=yes -buildfile buildAll.xml" />
+			<classpath>
+				<pathelement location="${ECLIPSE_LAUNCHER_JAR}" />
+			</classpath>
+		</java>
+	</target>
+</project>
+

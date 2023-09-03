@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource name="ARUIProject">
+	<storedValue key="EGLProjectSecondaryMigrationVersion" value="9.0"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptTargetPath" value="ARUIProject/EGLSource/ARUIProject.eglbld"/>
+	<storedValue key="EGLTargetRuntimeMask" value="3"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptDebugPath" value="ARUIProject/EGLSource/ARUIProject.eglbld"/>
+	<storedValue key="EGLProjectMigrationVersion" value="8.0.0"/>
+	<storedValue key="EGLProjectFeatureMask" value="16"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptTargetName" value="ARUIProjectJavaScriptBuildOptions"/>
+	<storedValue key="DefaultBuildDescriptorJavaScriptDebugName" value="ARUIProjectJavaScriptBuildOptions"/>
+</resource>

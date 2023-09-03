@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings>
+   <webserviceRuntime>JAXWS</webserviceRuntime>
+   <eglBinding name="IAEGLService" serviceName="services.AService" alias="">
+      <protocol.local/>
+   </eglBinding>
+   <webBinding name="ASOAPService" interface="services.ASOAPService" wsdlLocation="wsdl/ASOAPService.wsdl" wsdlPort="ASOAPService" wsdlService="ASOAPServiceService" uri="http://localhost:8080/ATomcatRuntimeProject/services/ASOAPService" soapVersion="SOAP-1.1"/>
+   <webBinding name="IASOAPService" interface="services.IASOAPService" wsdlLocation="wsdl/ASOAPService.wsdl" wsdlPort="ASOAPService" wsdlService="ASOAPServiceService" uri="http://localhost:8080/ATomcatRuntimeProject/services/ASOAPService" soapVersion="SOAP-1.1"/>
+   <restBinding name="IARESTService" baseURI="http://localhost:8080/ATomcatRuntimeProject/restservices/ARESTService" preserveRequestHeaders="false"/>
+   <restBinding name="ARESTService" baseURI="http://localhost:8080/ATomcatRuntimeProject/restservices/ARESTService" preserveRequestHeaders="false"/>
+</bindings>

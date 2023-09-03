@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGLCOMMANDS PUBLIC "-//IBM//DTD EGLCOMMANDS 5.1//EN" "">
+
+<EGLCOMMANDS>
+	<deploy deploymentDescriptorFile="AServiceProject\EGLSource\AServiceProject.egldd"></deploy>
+</EGLCOMMANDS>

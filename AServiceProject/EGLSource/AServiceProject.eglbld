@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" "">
+
+<EGL>
+	
+	<BuildDescriptor name="AServiceProjectJavaBuildOptions" 
+		genProject="AServiceProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="AServiceProject"
+		>
+  	</BuildDescriptor>
+	 
+	<BuildDescriptor name="AServiceProjectDebugBuildOptions" 
+		genProject="AServiceProject"
+		system="WIN"
+		J2EE="YES"		
+		deploymentDescriptor="AServiceProject"
+		>
+	</BuildDescriptor>
+	
+</EGL>

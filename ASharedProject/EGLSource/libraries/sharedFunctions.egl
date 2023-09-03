@@ -1,0 +1,8 @@
+package libraries;
+import items.* ;
+import records.* ;
+
+function getValueFunction ( ) returns ( aStringType )
+	aRec.aString = value ;
+	return ( aRec.aString ) ;
+end

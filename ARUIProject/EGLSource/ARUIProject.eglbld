@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" "">
+
+<EGL>
+		
+	<BuildDescriptor name="ARUIProjectJavaScriptBuildOptions" 
+		genProject="ARUIProject"
+		system="JAVASCRIPT"
+		J2EE="NO"
+		deploymentDescriptor="ARUIProject"
+		>	
+	</BuildDescriptor>
+	
+</EGL>

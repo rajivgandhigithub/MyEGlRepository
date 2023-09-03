@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<egl:deployment xmlns:egl="http://www.ibm.com/xmlns/egl/deployment/7.0">
+  <bindings>
+    <eglBinding alias="" name="IAEGLService" serviceName="services.AService">
+      <egl:protocol.local/>
+    </eglBinding>
+    <webBinding enableGeneration="true" interface="services.ASOAPService" name="ASOAPService" uri="http://localhost:8080/ATomcatRuntimeProject/services/ASOAPService" wsdlLocation="wsdl/ASOAPService.wsdl" wsdlPort="ASOAPService" wsdlService="ASOAPServiceService"/>
+    <webBinding enableGeneration="true" interface="services.IASOAPService" name="IASOAPService" uri="http://localhost:8080/ATomcatRuntimeProject/services/ASOAPService" wsdlLocation="wsdl/ASOAPService.wsdl" wsdlPort="ASOAPService" wsdlService="ASOAPServiceService"/>
+    <restBinding baseURI="http://localhost:8080/ATomcatRuntimeProject/restservices/ARESTService" enableGeneration="true" name="IARESTService" preserveRequestHeaders="false"/>
+    <restBinding baseURI="http://localhost:8080/ATomcatRuntimeProject/restservices/ARESTService" enableGeneration="true" name="ARESTService" preserveRequestHeaders="false"/>
+  </bindings>
+  <webservices>
+    <webservice enableGeneration="false" implementation="services.ARESTService" implType="1024" style="document-wrapped"/>
+    <webservice enableGeneration="true" implementation="services.ASOAPService" implType="1024" style="document-wrapped" useExistingWSDL="true" wsdlLocation="wsdl/ASOAPService.wsdl" wsdlPort="ASOAPService" wsdlService="ASOAPServiceService"/>
+  </webservices>
+  <restservices>
+    <restservice enableGeneration="true" implementation="services.ARESTService" implType="1024" uri="ARESTService"/>
+    <restservice enableGeneration="false" implementation="services.ASOAPService" implType="1024" uri="ASOAPService"/>
+  </restservices>
+  <ruiapplication deployAllHandlers="false">
+    <parameters>
+      <parameter name="locales" value="en_US,English,en_US"/>
+    </parameters>
+  </ruiapplication>
+  <egl:target.project name="ATomcatRuntimeProject"/>
+  <webserviceRuntime>JAXWS</webserviceRuntime>
+</egl:deployment>
